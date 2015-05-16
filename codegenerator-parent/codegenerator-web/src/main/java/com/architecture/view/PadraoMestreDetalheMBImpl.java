@@ -49,18 +49,18 @@ public abstract class PadraoMestreDetalheMBImpl<ModelDetalhe extends ModelAb, Mo
 			setModelCad(null);
 
 			executarPesquisar();
-			
+
 			RequestContext.getCurrentInstance().execute("PF('dialogCadastro').hide()");
 		} catch (Exception e) {
 			UtilWeb.tratarException(e);
 		}
 	}
-	
+
 	@Override
 	public void executarExcluir(ModelDetalhe pModel) {
 		super.executarExcluir(pModel);
 		executarPesquisar();
 	}
-	
+
 	public abstract String executarVoltar();
 }
