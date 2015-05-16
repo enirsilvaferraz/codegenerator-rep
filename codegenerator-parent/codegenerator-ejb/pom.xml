@@ -1,0 +1,42 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.sistemas.codegenerator</groupId>
+		<artifactId>codegenerator-parent</artifactId>
+		<version>1.0</version>
+	</parent>
+
+	<artifactId>codegenerator-ejb</artifactId>
+	<packaging>ejb</packaging>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>4.2.13.Final</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.2.13.Final</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sistemas.architecture</groupId>
+			<artifactId>architecture-ejb</artifactId>
+			<type>ejb</type>
+			<version>1.0</version>
+			<classifier>client</classifier>
+			<scope>provided</scope>
+		</dependency>
+
+	</dependencies>
+
+</project>

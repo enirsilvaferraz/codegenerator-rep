@@ -1,0 +1,76 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+<!-- =============================================================================================================== -->
+<!-- ====                                            HEADER                                                     ==== -->
+<!-- =============================================================================================================== -->
+
+<h:head>
+	<h:outputStylesheet library="css" name="default.css" />
+	<f:loadBundle var="label" basename="labels" />
+</h:head>
+
+
+<h:body>
+
+<!-- <f:view renderKitId="PRIMEFACES_MOBILE" /> -->
+
+	<h:form id="formulario" >
+
+		<div align="center">
+			
+<!-- 			<div class="menu-header"> -->
+<!-- 				<ui:include src="/resources/templates/menu.xhtml" /> -->
+<!-- 			</div> -->
+
+<!-- <p:menubar> -->
+<!-- <p:menuitem action="/pages/template-crud" value="Template" immediate="true" /> -->
+
+<!-- </p:menubar> -->
+
+			<div style="width: 1000px;">
+
+				<p:growl autoUpdate="true" />
+
+				<p:spacer width="100%" height="30" />
+				<div class="title">
+					<p:outputLabel value="#{param_titulo}" styleClass="header-page" />
+				</div>
+				<p:spacer width="100%" height="20" />
+
+
+				<ui:insert name="template-customizado" />
+
+
+				<ui:insert name="confirm_dialog">
+
+					<p:confirmDialog global="true" id="modalConfirmacao" message="Deseja realmente excluir esse registro?"
+						header="Confirmar Ação" width="500">
+						<div align="right">
+							<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="Nao" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</div>
+					</p:confirmDialog>
+
+				</ui:insert>
+
+
+				<ui:insert name="ajax_status">
+
+<!-- 					<p:ajaxStatus onstart="PF('statusDialog').show()" oncomplete="PF('statusDialog').hide()" /> -->
+
+<!-- 					<p:dialog id="statusDialog" widgetVar="statusDialog" modal="true" draggable="false" closable="false" -->
+<!-- 						resizable="false" showHeader="false"> -->
+<!-- 						<p:graphicImage url="/resources/img/ajax_loader_bar.gif" id="imgAjaxLoad" /> -->
+<!-- 					</p:dialog> -->
+
+				</ui:insert>
+
+			</div>
+		</div>
+
+	</h:form>
+
+</h:body>
+
+</html>

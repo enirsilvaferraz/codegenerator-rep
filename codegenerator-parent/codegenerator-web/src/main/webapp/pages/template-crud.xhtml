@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	template="/resources/templates/template-crud.xhtml">
+
+	<ui:param name="param_titulo" value="Manutenção de Template" />
+	<ui:param name="padraoMB" value="#{templateCrudMB}" />
+
+	<ui:define name="define-filtros"></ui:define>
+
+	<ui:define name="define-cadastro-padrao">
+
+		<p:row>
+			<p:column>
+				<p:outputLabel value="Nome" for="template-nome" />
+			</p:column>
+			<p:column>
+				<p:inputText id="template-nome" value="#{templateCrudMB.modelCad.nome}" size="100" />
+			</p:column>
+		</p:row>
+
+		<p:row>
+			<p:column>
+				<p:outputLabel value="Código Fonte" for="template-codigo-fonte" />
+			</p:column>
+			<p:column />
+		</p:row>
+		<p:row>
+			<p:column colspan="2">
+				<p:inputTextarea id="template-codigo-fonte" value="#{templateCrudMB.modelCad.codigoFonte}" cols="118" rows="15"
+					autoResize="false" />
+			</p:column>
+		</p:row>
+
+	</ui:define>
+
+	<ui:define name="define-detalhes-padrao">
+
+		<p:row>
+			<p:column>
+				<p:outputLabel value="Nome" for="template-nome-det" />
+			</p:column>
+			<p:column>
+				<p:inputText id="template-nome-det" value="#{templateCrudMB.modelCad.nome}" size="100" readonly="true"
+					disabled="true" />
+			</p:column>
+		</p:row>
+
+		<p:row>
+			<p:column>
+				<p:outputLabel value="Código Fonte" for="template-codigo-fonte-det" />
+			</p:column>
+			<p:column />
+		</p:row>
+		<p:row>
+			<p:column colspan="2">
+				<p:inputTextarea id="template-codigo-fonte-det" value="#{templateCrudMB.modelCad.codigoFonte}" cols="118" rows="15"
+					autoResize="false" readonly="true" disabled="true" />
+			</p:column>
+		</p:row>
+
+	</ui:define>
+
+	<ui:define name="define-tabela-padrao">
+
+		<p:column headerText="Nome">
+			<p:outputLabel value="#{item.nome}" />
+		</p:column>
+
+	</ui:define>
+
+	<ui:define name="define-tabela-padrao-acoes">
+
+		<p:commandButton icon="fa fa-sitemap" title="#{label['sistema.botao.detalhes']}" process="@this"
+			action="#{templateCrudMB.prepararMestreDetalhes()}">
+			<f:param name="ID_MODEL_MESTRE" value="#{item.codigo}" />
+		</p:commandButton>
+
+	</ui:define>
+
+</ui:composition>

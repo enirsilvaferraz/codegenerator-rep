@@ -1,0 +1,78 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html">
+
+	<p:row>
+		<p:column colspan="2">
+			<p:fileUpload fileUploadListener="#{projetoConfMB.uploadDependencias}" mode="advanced" auto="true"
+				update="classpath-fileupload" allowTypes="/(\.|\/)(jar)$/" />
+		</p:column>
+	</p:row>
+
+<!-- 	<p:row> -->
+<!-- 		<p:column colspan="2"> -->
+<!-- 			<p:dataTable id="dependencia-fileupload" value="#{projetoConfMB.model.listDependencias}" var="item"  > -->
+<!-- 				<p:column headerText="Arquivos JAR"> -->
+<!-- 					<p:outputLabel value="#{item.nomeArquivo}" /> -->
+<!-- 				</p:column> -->
+<!-- 			</p:dataTable> -->
+<!-- 		</p:column> -->
+<!-- 	</p:row> -->
+
+
+	<!-- 	<p:row rendered="false"> -->
+	<!-- 		<p:column> -->
+	<!-- 			<p:tree id="classpath-fileupload" value="#{projetoConfMB.root}" var="doc" animate="true" selectionMode="multiple" -->
+	<!-- 				selection="#{projetoConfMB.selecao}" style="width:100%;"> -->
+	<!-- 				<p:treeNode expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed"> -->
+	<!-- 					<p:spacer height="1" width="5" /> -->
+	<!-- 					<h:outputText value="#{doc}" /> -->
+	<!-- 				</p:treeNode> -->
+	<!-- 				<p:treeNode type="class" icon="ui-icon-document"> -->
+	<!-- 					<p:spacer height="1" width="5" /> -->
+	<!-- 					<h:outputText value="#{doc}" /> -->
+	<!-- 				</p:treeNode> -->
+	<!-- 			</p:tree> -->
+	<!-- 		</p:column> -->
+	<!-- 	</p:row> -->
+
+	<p:row>
+		<p:column>
+			<p:dataTable id="classpath-fileupload" value="#{projetoConfMB.model.listDependencias}" var="item">
+
+				<p:columnGroup type="header">
+					<p:row>
+						<p:column width="25" />
+						<p:column headerText="Lista de ClassPath" />
+					</p:row>
+				</p:columnGroup>
+
+				<p:subTable var="subItem" value="#{item.listClassesListadas}">
+
+					<f:facet name="header">
+						<h:outputText value="Classes no Arquivo #{item.nomeArquivo}" />
+					</f:facet>
+
+					<p:column>
+						<center>
+							<p:selectBooleanCheckbox value="#{subItem.deveUtilizar}" >
+<!-- 								<p:ajax event="change" update="@form:tableview:datatable-listaclasspath" process="@parent" /> -->
+							</p:selectBooleanCheckbox>
+						</center>
+					</p:column>
+
+					<p:column>
+						<p:outputLabel value="#{subItem.nomeQualificado}" />
+					</p:column>
+				</p:subTable>
+
+			</p:dataTable>
+		</p:column>
+	</p:row>
+
+	<p:row>
+		<p:column>
+			<p:commandButton value="Submeter" process="tab2" update="@form:tableview:datatable-listaclasspath @form:tableview:datatable-listaclasses" action="#{projetoConfMB.carregarClassloader}" />
+		</p:column>
+	</p:row>
+
+</ui:composition>

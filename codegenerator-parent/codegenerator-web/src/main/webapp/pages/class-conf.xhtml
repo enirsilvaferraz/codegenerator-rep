@@ -1,0 +1,134 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html">
+
+	<p:row>
+
+		<p:column style="vertical-align: top;">
+			<p:dataTable id="datatable-listaclasspath" value="#{projetoConfMB.model.listDependencias}" var="item"
+				selectionMode="single" selection="#{projetoConfMB.model.selectedClasspath}" rowKey="#{item.nomeArquivo}">
+
+				<p:ajax event="rowSelect" update="@form:tableview:datatable-listaclasses" />
+				<!--         		<p:ajax event="rowUnselect" listener="#{projetoConfMB.onRowUnselect}" update="@form" /> -->
+
+				<p:column headerText="Classes Selecionadas">
+					<h:outputText value="s#{item.nomeArquivo}" />
+				</p:column>
+			</p:dataTable>
+		</p:column>
+
+
+		<p:column style="vertical-align: top;">
+			<p:dataTable id="datatable-listaclasses" value="#{projetoConfMB.model.selectedClasspath.listClassesSelecionadas}"
+				var="item" selectionMode="single" selection="#{projetoConfMB.model.selectedClasspath.selectedClass}"
+				rowKey="#{item.nomeQualificado}">
+
+				<p:ajax event="rowSelect" update="@form:tableview:panel-classe" />
+
+				<p:column headerText="Classes Selecionadas">
+					<h:outputText value="#{item.nomeSimplificado}" />
+				</p:column>
+			</p:dataTable>
+
+			<!-- 					<p:selectOneMenu> -->
+			<!-- 						<f:selectItem itemLabel="Default" /> -->
+			<!-- 						<f:selectItems value="#{projetoConfMB.model.listDependencias.get(0).listClassesSelecionadas}" var="item" itemLabel="#{item.nomeQualificado}" /> -->
+			<!-- 					</p:selectOneMenu> -->
+
+			<!-- 					<p:panelGrid> -->
+			<!-- 						<p:row> -->
+			<!-- 							<p:column> -->
+			<!-- 								<p:commandButton value="Default" style="width:250px" /> -->
+			<!-- 							</p:column> -->
+			<!-- 						</p:row> -->
+			<!-- 						<ui:repeat var="subitem" value="#{projetoConfMB.model.listDependencias.get(0).listClassesSelecionadas}"> -->
+			<!-- 							<p:row rendered="#{subitem.deveUtilizar}"> -->
+			<!-- 								<p:column> -->
+			<!-- 									<p:commandButton value="#{subitem.nomeSimplificado}" style="width:250px" /> -->
+			<!-- 								</p:column> -->
+			<!-- 							</p:row> -->
+			<!-- 						</ui:repeat> -->
+			<!-- 					</p:panelGrid> -->
+
+
+		</p:column>
+
+	</p:row>
+
+	<p:row>
+
+		<p:column colspan="2">
+
+			<p:panel id="panel-classe" header="#{projetoConfMB.model.selectedClasspath.nomeArquivo}">
+
+				<p:panelGrid>
+
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Nome da Classe: " />
+						</p:column>
+						<p:column>
+							<p:inputText value="#{projetoConfMB.model.selectedClasspath.selectedClass.nomeQualificado}" disabled="true"
+								readonly="true" size="60" />
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Pacote do Managed Bean: " />
+						</p:column>
+						<p:column>
+							<p:inputText value="#{projetoConfMB.model.selectedClasspath.selectedClass.pacoteManagedBean}" size="60" />
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Diretório das Páginas: " />
+						</p:column>
+						<p:column>
+							<p:inputText value="#{projetoConfMB.model.selectedClasspath.selectedClass.diretorioPagias}" size="60" />
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Template: " />
+						</p:column>
+						<p:column>
+							<p:selectOneMenu>
+								<f:selectItems value="#{projetoConfMB.listLogicaTela}" var="item" itemLabel="#{item.label}" itemValue="#{item}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column colspan="2">
+							<p:dataTable value="#{projetoConfMB.model.selectedClasspath.selectedClass.listCamposClasse}" var="campo">
+								<p:column headerText="Campos">
+									<p:outputLabel value="#{campo.nome}" />
+								</p:column>
+								<p:column headerText="Template">
+									<p:outputLabel value="" />
+								</p:column>
+								<p:column headerText="Arg" width="25">
+									<p:selectBooleanCheckbox value="#{campo.utilizaArg}" />
+								</p:column>
+								<p:column headerText="Sel" width="25">
+									<p:selectBooleanCheckbox value="#{campo.utilizaSel}" />
+								</p:column>
+								<p:column headerText="Man" width="25">
+									<p:selectBooleanCheckbox value="#{campo.utilizaMan}" />
+								</p:column>
+							</p:dataTable>
+						</p:column>
+					</p:row>
+
+				</p:panelGrid>
+
+			</p:panel>
+
+		</p:column>
+
+	</p:row>
+
+</ui:composition>

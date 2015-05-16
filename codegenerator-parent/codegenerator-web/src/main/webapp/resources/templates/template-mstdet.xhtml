@@ -1,0 +1,121 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	template="/resources/templates/template.xhtml">
+
+	<ui:define name="template-customizado">
+
+		<ui:insert name="define-detalhe-mestre">
+
+			<p:panel id="panelMestre" header="#{label['sistema.panel.mestre.titulo']}">
+				<p:panelGrid id="panel_mestre">
+					<ui:insert name="define-detalhe-mestre-padrao" />
+				</p:panelGrid>
+			</p:panel>
+
+		</ui:insert>
+
+
+		<ui:insert name="define-cadastro">
+
+			<p:dialog id="dialogCadastro" header="#{label['sistema.dialog.cadastro.titulo']}" widgetVar="dialogCadastro"
+				width="900" modal="true" closable="false" resizable="false">
+
+				<p:panelGrid id="panel_dialog">
+					<ui:insert name="define-cadastro-padrao" />
+				</p:panelGrid>
+
+				<f:facet name="footer">
+					<p:commandButton value="#{label['sistema.botao.salvar']}" icon="ui-icon-disk"
+						title="#{label['sistema.botao.salvar']}" actionListener="#{padraoMB.executarSalvar()}" process="dialogCadastro"
+						update="panel_dialog dataTable" />
+
+					<p:commandButton value="#{label['sistema.botao.cancelar']}" icon="ui-icon-cancel"
+						title="#{label['sistema.botao.cancelar']}" onclick="PF('dialogCadastro').hide()" immediate="true">
+						<f:setPropertyActionListener target="#{padraoMB.modelCad}" value="#{null}" />
+					</p:commandButton>
+				</f:facet>
+
+			</p:dialog>
+
+		</ui:insert>
+
+
+
+		<ui:insert name="define-detalhes">
+
+			<p:dialog id="dialogDetalhes" header="#{label['sistema.dialog.detalhes.titulo']}" widgetVar="dialogDetalhes"
+				width="900" modal="true" closable="false" resizable="false">
+
+				<p:panelGrid id="panel_dialog_det">
+					<ui:insert name="define-detalhes-padrao" />
+				</p:panelGrid>
+
+				<f:facet name="footer">
+					<p:commandButton value="#{label['sistema.botao.cancelar']}" icon="ui-icon-cancel"
+						title="#{label['sistema.botao.cancelar']}" onclick="PF('dialogDetalhes').hide()" immediate="true">
+						<f:setPropertyActionListener target="#{padraoMB.modelCad}" value="#{null}" />
+					</p:commandButton>
+				</f:facet>
+
+			</p:dialog>
+
+		</ui:insert>
+
+
+
+
+		<ui:insert name="define-tabela">
+
+			<p:dataTable id="dataTable" value="#{padraoMB.listModel}" var="item" rows="20" paginator="true"
+				paginatorPosition="bottom" emptyMessage="#{label['sistema.tabela.emptymessage']}">
+
+				<ui:insert name="define-tabela-padrao" />
+
+				<p:column headerText="#{label['sistema.tabela.acoes']}" width="140" style="text-align:center">
+					<ui:insert name="define-tabela-padrao-acoes-padrao">
+						<p:commandButton icon="ui-icon-pencil" title="#{label['sistema.botao.editar']}" process="@this"
+							update="@form:panel_dialog" actionListener="#{padraoMB.prepararEditar(item)}">
+						</p:commandButton>
+
+						<p:commandButton icon="ui-icon-close" title="#{label['sistema.botao.excluir']}"
+							actionListener="#{padraoMB.executarExcluir(item)}" process="@this" update="dataTable">
+							<p:confirm />
+						</p:commandButton>
+
+						<p:commandButton icon="ui-icon-clipboard" title="#{label['sistema.botao.detalhes']}" process="@this"
+							update="@form:panel_dialog_det" actionListener="#{padraoMB.prepararDetalhes(item)}">
+						</p:commandButton>
+
+						<ui:insert name="define-tabela-padrao-acoes" />
+
+					</ui:insert>
+				</p:column>
+
+			</p:dataTable>
+			<p:spacer width="100%" height="5" />
+
+		</ui:insert>
+
+
+		<ui:insert name="define-comandos">
+
+			<p:panel style="text-align:right">
+				<p:commandButton value="#{label['sistema.botao.incluir']}" icon="ui-icon-document"
+					title="#{label['sistema.botao.incluir']}" oncomplete="PF('dialogCadastro').show()" process="@this"
+					update="panel_dialog">
+					<f:setPropertyActionListener target="#{padraoMB.modelCad}" value="#{null}" />
+				</p:commandButton>
+				
+				<p:commandButton value="#{label['sistema.botao.voltar']}" icon="ui-icon-document"
+					title="#{label['sistema.botao.voltar']}"  process="@this" action="#{padraoMB.executarVoltar}" >
+				</p:commandButton>
+				
+			</p:panel>
+
+		</ui:insert>
+
+
+	</ui:define>
+
+
+</ui:composition>

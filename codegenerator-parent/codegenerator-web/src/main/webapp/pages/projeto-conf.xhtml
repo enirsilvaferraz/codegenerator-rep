@@ -1,0 +1,24 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html">
+
+	<p:row>
+		<p:column>
+			<p:outputLabel value="Diretório do Projeto:" for="projeto-conf-diretorio-projeto" />
+		</p:column>
+		<p:column>
+			<p:inputText id="projeto-conf-diretorio-projeto" value="#{projetoConfMB.model.diretorioPrincipal}" size="85"
+				required="true">
+			</p:inputText>
+		</p:column>
+	</p:row>
+
+	<p:row>
+		<p:column>
+			<p:outputLabel value="Arquivo de Labels:" for="projeto-conf-arquivo-labels" />
+		</p:column>
+		<p:column>
+			<p:inputText id="projeto-conf-arquivo-labels" value="#{projetoConfMB.model.arquivoLabel}" size="85" required="true" />
+		</p:column>
+	</p:row>
+
+</ui:composition>

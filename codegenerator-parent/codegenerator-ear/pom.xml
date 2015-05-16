@@ -1,0 +1,82 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>com.sistemas.architecture</groupId>
+		<artifactId>architecture-parent</artifactId>
+		<version>1.0</version>
+	</parent>
+
+	<groupId>com.sistemas.codegenerator</groupId>
+	<artifactId>codegenerator-ear</artifactId>
+	<packaging>ear</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.sistemas.codegenerator</groupId>
+			<artifactId>codegenerator-ejb</artifactId>
+			<version>1.0</version>
+			<type>ejb</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sistemas.codegenerator</groupId>
+			<artifactId>codegenerator-web</artifactId>
+			<version>1.0</version>
+			<type>war</type>
+			<exclusions>
+				<exclusion>
+					<artifactId>*</artifactId>
+					<groupId>*</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.sistemas.architecture</groupId>
+			<artifactId>architecture-ejb</artifactId>
+			<version>1.0</version>
+			<type>ejb</type>
+			<exclusions>
+				<exclusion>
+					<artifactId>*</artifactId>
+					<groupId>*</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+	</dependencies>
+
+
+	<build>
+		<finalName>codegenerator-ear</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<configuration>
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<applicationName>codegenerator-ear</applicationName>
+					<includeLibInApplicationXml>true</includeLibInApplicationXml>
+					<modules>
+						<ejbModule>
+							<groupId>com.sistemas.codegenerator</groupId>
+							<artifactId>codegenerator-ejb</artifactId>
+						</ejbModule>
+						<ejbModule>
+							<groupId>com.sistemas.architecture</groupId>
+							<artifactId>architecture-ejb</artifactId>
+						</ejbModule>
+						<webModule>
+							<groupId>com.sistemas.codegenerator</groupId>
+							<artifactId>codegenerator-web</artifactId>
+							<contextRoot>codegenerator</contextRoot>
+						</webModule>
+					</modules>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
