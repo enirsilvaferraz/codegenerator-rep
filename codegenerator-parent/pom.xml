@@ -17,5 +17,6 @@
 		<module>codegenerator-web</module>
 		<module>codegenerator-ejb</module>
 		<module>codegenerator-ear</module>
+<!-- 		<module>codegenerator-test</module> -->
 	</modules>
 </project>
