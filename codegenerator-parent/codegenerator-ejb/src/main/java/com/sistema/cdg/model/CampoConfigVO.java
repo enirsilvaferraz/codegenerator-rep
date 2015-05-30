@@ -6,6 +6,8 @@ public class CampoConfigVO {
 
 	private String nome;
 
+	private String texto;
+
 	private Boolean utilizaArg;
 
 	private Boolean utilizaSel;
@@ -46,6 +48,14 @@ public class CampoConfigVO {
 
 	public void setUtilizaMan(Boolean utilizaMan) {
 		this.utilizaMan = utilizaMan;
+	}
+
+	public String getTexto() {
+		return texto;
+	}
+
+	public void setTexto(String texto) {
+		this.texto = texto;
 	}
 
 }

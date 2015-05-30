@@ -5,19 +5,16 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.archtecture.model.entities.ModelAb;
-import com.sistema.cdg.model.enums.TipoTemplate;
 
 @Entity
 @Table(name = "TEMPLATE", schema = "code_generator")
@@ -39,9 +36,9 @@ public class Template extends ModelAb {
 	@Column(name = "CODIGO_FONTE", length = 4000, nullable = false, unique = false)
 	private String codigoFonte;
 
-	@Enumerated
-	@Column(name = "TIPO", length = 1, nullable = false, unique = false)
-	private TipoTemplate tipo;
+//	@Enumerated
+//	@Column(name = "TIPO", length = 1, nullable = false, unique = false)
+//	private TipoTemplate tipo;
 
 	@ManyToOne
 	@JoinColumn(name = "CODIGO_TEMPLATE_TELA")
@@ -86,13 +83,13 @@ public class Template extends ModelAb {
 		return getNome();
 	}
 
-	public TipoTemplate getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(TipoTemplate tipo) {
-		this.tipo = tipo;
-	}
+//	public TipoTemplate getTipo() {
+//		return tipo;
+//	}
+//
+//	public void setTipo(TipoTemplate tipo) {
+//		this.tipo = tipo;
+//	}
 
 	public Template getTeplateTela() {
 		return teplateTela;
