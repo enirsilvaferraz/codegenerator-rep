@@ -28,6 +28,28 @@
 			<scope>provided</scope>
 		</dependency>
 
+<!-- 		<dependency> -->
+<!-- 			<groupId>junit</groupId> -->
+<!-- 			<artifactId>junit</artifactId> -->
+<!-- 			<version>4.12</version> -->
+<!-- 			<scope>test</scope> -->
+<!-- 		</dependency> -->
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.jboss.as</groupId> -->
+<!-- 			<artifactId>jboss-as-embedded</artifactId> -->
+<!-- 			<version>7.2.0.Final</version> -->
+<!-- 			<scope>test</scope> -->
+<!-- 		</dependency> -->
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.jboss.ejb3.embedded</groupId> -->
+<!-- 			<artifactId>jboss-ejb3-embedded-standalone</artifactId> -->
+<!-- 			<version>1.0.0-alpha-4</version> -->
+<!-- 			<scope>test</scope> -->
+<!-- 		</dependency> -->
+
+
 		<dependency>
 			<groupId>com.sistemas.architecture</groupId>
 			<artifactId>architecture-ejb</artifactId>
@@ -38,5 +60,12 @@
 		</dependency>
 
 	</dependencies>
+
+<!-- 	<repositories> -->
+<!-- 		<repository> -->
+<!-- 			<id>Jboss</id> -->
+<!-- 			<url>https://repository.jboss.org/nexus/content/repositories/releases/</url> -->
+<!-- 		</repository> -->
+<!-- 	</repositories> -->
 
 </project>
