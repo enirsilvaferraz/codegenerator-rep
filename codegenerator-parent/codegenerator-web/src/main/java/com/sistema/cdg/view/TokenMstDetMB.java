@@ -8,7 +8,6 @@ import javax.faces.bean.ViewScoped;
 
 import com.architecture.view.PadraoMestreDetalheMBImpl;
 import com.sistema.cdg.model.Template;
-import com.sistema.cdg.model.enums.TipoTemplate;
 
 @ManagedBean
 @ViewScoped
@@ -16,19 +15,19 @@ public class TokenMstDetMB extends PadraoMestreDetalheMBImpl<Template, Template>
 
 	@PostConstruct
 	public void init() throws Exception {
-		getModelSel().setTeplateTela(getModelMestre());
+		getModelSel().setTeplateTela(getModelCad());
 		executarPesquisar();
 	}
 
 	@Override
 	protected void prepararSalvar() throws Exception {
 		super.prepararSalvar();
-		if (getModelMestre().getListTemplate()==null){
-			getModelMestre().setListTemplate(new ArrayList<Template>());
+
+		if (getModelCad().getListTemplate() == null) {
+			getModelCad().setListTemplate(new ArrayList<Template>());
 		}
-		getModelCad().setTipo(TipoTemplate.TOKEN);
-		getModelCad().setTeplateTela(getModelMestre());
-		getModelMestre().getListTemplate().add(getModelCad());
+		getModelCad().setTeplateTela(getModelDetalhe());
+		getModelCad().getListTemplate().add(getModelCad());
 	}
 
 	@Override

@@ -1,18 +1,18 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
 	template="/resources/templates/template-mstdet.xhtml">
-	
-	<ui:param name="param_titulo" value="Manutenção de Template" />
+
+	<ui:param name="param_titulo" value="Manutenção de Sub Template" />
 	<ui:param name="padraoMB" value="#{tokenMstDetMB}" />
 
 	<ui:define name="define-detalhe-mestre-padrao">
-
+		
 		<p:row>
 			<p:column>
-				<p:outputLabel value="Nome" for="template-mestre-nome-det" />
+				<p:outputLabel value="Nome" for="template-nome-mstdet" />
 			</p:column>
 			<p:column>
-				<p:inputText id="template-mestre-nome-det" value="#{tokenMstDetMB.modelMestre.nome}" size="100" readonly="true"
+				<p:inputText id="template-nome-mstdet" value="#{tokenMstDetMB.modelCad.nome}" size="100" readonly="true"
 					disabled="true" />
 			</p:column>
 		</p:row>
@@ -26,7 +26,7 @@
 				<p:outputLabel value="Nome" for="template-nome" />
 			</p:column>
 			<p:column>
-				<p:inputText id="template-nome" value="#{tokenMstDetMB.modelCad.nome}" size="100" />
+				<p:inputText id="template-nome" value="#{tokenMstDetMB.modelDetalhe.nome}" size="100" />
 			</p:column>
 		</p:row>
 
@@ -38,7 +38,7 @@
 		</p:row>
 		<p:row>
 			<p:column colspan="2">
-				<p:inputTextarea id="template-codigo-fonte" value="#{tokenMstDetMB.modelCad.codigoFonte}" cols="118" rows="15"
+				<p:inputTextarea id="template-codigo-fonte" value="#{tokenMstDetMB.modelDetalhe.codigoFonte}" cols="118" rows="15"
 					autoResize="false" />
 			</p:column>
 		</p:row>
@@ -52,7 +52,7 @@
 				<p:outputLabel value="Nome" for="template-nome-det" />
 			</p:column>
 			<p:column>
-				<p:inputText id="template-nome-det" value="#{tokenMstDetMB.modelCad.nome}" size="100" readonly="true"
+				<p:inputText id="template-nome-det" value="#{tokenMstDetMB.modelDetalhe.nome}" size="100" readonly="true"
 					disabled="true" />
 			</p:column>
 		</p:row>
@@ -65,7 +65,7 @@
 		</p:row>
 		<p:row>
 			<p:column colspan="2">
-				<p:inputTextarea id="template-codigo-fonte-det" value="#{tokenMstDetMB.modelCad.codigoFonte}" cols="118" rows="15"
+				<p:inputTextarea id="template-codigo-fonte-det" value="#{tokenMstDetMB.modelDetalhe.codigoFonte}" cols="118" rows="15"
 					autoResize="false" readonly="true" disabled="true" />
 			</p:column>
 		</p:row>

@@ -9,9 +9,11 @@ import org.primefaces.context.RequestContext;
 
 import com.archtecture.model.entities.ModelAb;
 
-public abstract class PadraoMestreDetalheMBImpl<ModelDetalhe extends ModelAb, ModelMestre extends ModelAb> extends
-		PadraoMBImpl<ModelDetalhe> {
+public abstract class PadraoMestreDetalheMBImpl<ModelMestre extends ModelAb, ModelDetalhe extends ModelAb> extends
+		PadraoMBImpl<ModelMestre> {
 
+	/**
+	
 	private ModelMestre modelMestre;
 
 	public ModelMestre getModelMestre() throws Exception {
@@ -63,4 +65,48 @@ public abstract class PadraoMestreDetalheMBImpl<ModelDetalhe extends ModelAb, Mo
 	}
 
 	public abstract String executarVoltar();
+	
+	*/
+	
+	private ModelDetalhe modelDetalhe;
+	
+	/**
+	 * 
+	 */
+	@Override
+	public ModelMestre getModelCad() {
+		
+		if (super.getModelCad().getCodigo() == null) {
+			
+			Long id = Long.valueOf(((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
+					.getRequest()).getParameter("ID_MODEL_MESTRE"));
+			
+			super.getModelCad().setCodigo(id);
+
+			try {
+				super.setModelCad(getPersistenceFacade().carregar(super.getModelCad()));
+			} catch (Exception e) {
+				return null;
+			}
+			
+		}
+		
+		return super.getModelCad();
+		
+	}
+
+	public ModelDetalhe getModelDetalhe() {
+		if (modelDetalhe==null){
+			modelDetalhe = (ModelDetalhe) getInstance();
+		}
+		return modelDetalhe;
+	}
+
+	public void setModelDetalhe(ModelDetalhe modelDetalhe) {
+		this.modelDetalhe = modelDetalhe;
+	}
+
+	public abstract String executarVoltar() ;
+	
+	
 }

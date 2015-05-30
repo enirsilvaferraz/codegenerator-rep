@@ -101,31 +101,57 @@
 						</p:column>
 					</p:row>
 
-					<p:row>
-						<p:column colspan="2">
-							<p:dataTable value="#{projetoConfMB.model.selectedClasspath.selectedClass.listCamposClasse}" var="campo">
-								<p:column headerText="Campos">
-									<p:outputLabel value="#{campo.nome}" />
-								</p:column>
-								<p:column headerText="Template">
-									<p:outputLabel value="" />
-								</p:column>
-								<p:column headerText="Arg" width="25">
-									<p:selectBooleanCheckbox value="#{campo.utilizaArg}" />
-								</p:column>
-								<p:column headerText="Sel" width="25">
-									<p:selectBooleanCheckbox value="#{campo.utilizaSel}" />
-								</p:column>
-								<p:column headerText="Man" width="25">
-									<p:selectBooleanCheckbox value="#{campo.utilizaMan}" />
-								</p:column>
-							</p:dataTable>
-						</p:column>
-					</p:row>
-
 				</p:panelGrid>
 
 			</p:panel>
+
+		</p:column>
+
+	</p:row>
+
+	<p:row>
+
+		<p:column colspan="2">
+			<p:spacer height="10" />
+		</p:column>
+
+	</p:row>
+
+	<p:row>
+
+		<p:column colspan="2">
+
+			<p:tabView value="#{projetoConfMB.listLogicaTela}" var="item">
+
+				<p:tab title="#{item.nome}">
+
+					<p:dataTable value="#{projetoConfMB.model.selectedClasspath.selectedClass.listCamposClasse}" var="campo"
+						editable="true">
+						<p:column headerText="Campos">
+							<p:outputLabel value="#{campo.nome}" />
+						</p:column>
+						<p:column headerText="Template">
+							<p:outputLabel value="" />
+						</p:column>
+						<p:column headerText="Label">
+							<p:cellEditor>
+								<f:facet name="output">
+									<p:outputLabel value="#{campo.texto}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{campo.texto}" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+						<p:column width="40">
+							<p:rowEditor />
+						</p:column>
+					</p:dataTable>
+
+				</p:tab>
+
+			</p:tabView>
+
 
 		</p:column>
 

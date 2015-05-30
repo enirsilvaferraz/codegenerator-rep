@@ -6,7 +6,6 @@ import javax.faces.bean.ViewScoped;
 
 import com.architecture.view.PadraoMBImpl;
 import com.sistema.cdg.model.Template;
-import com.sistema.cdg.model.enums.TipoTemplate;
 
 @ManagedBean
 @ViewScoped
@@ -14,7 +13,7 @@ public class TemplateCrudMB extends PadraoMBImpl<Template> {
 
 	@PostConstruct
 	private void init() {
-		getModelSel().setTipo(TipoTemplate.TELA);
+//		getModelSel().setTipo(TipoTemplate.TELA);
 		executarPesquisar();
 	}
 
