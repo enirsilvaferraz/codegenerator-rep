@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html">
+
+	<p:row>
+
+		<p:column colspan="2">
+
+			<p:panel id="panel-classe" header="#{projetoConfMB.model.selectedClasspath.nomeArquivo}">
+
+				<p:panelGrid>
+
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Nome da Classe: " />
+						</p:column>
+						<p:column>
+							<p:inputText value="#{projetoConfMB.model.selectedClasspath.selectedClass.nomeQualificado}" disabled="true"
+								readonly="true" size="60" />
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Pacote do Managed Bean: " />
+						</p:column>
+						<p:column>
+							<p:inputText value="#{projetoConfMB.model.selectedClasspath.selectedClass.pacoteManagedBean}" size="60" />
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Diretório das Páginas: " />
+						</p:column>
+						<p:column>
+							<p:inputText value="#{projetoConfMB.model.selectedClasspath.selectedClass.diretorioPagias}" size="60" />
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Template: " />
+						</p:column>
+						<p:column>
+							<p:selectOneMenu>
+								<f:selectItems value="#{projetoConfMB.listLogicaTela}" var="item" itemLabel="#{item.label}" itemValue="#{item}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+
+				</p:panelGrid>
+
+			</p:panel>
+
+		</p:column>
+
+	</p:row>
+
+</ui:composition>

@@ -13,7 +13,7 @@ public class ClassPathConfigVO {
 	private List<ClasseConfigVO> listClassesSelecionadas;
 
 	private List<ClasseConfigVO> listClassesListadas;
-	
+
 	private ClasseConfigVO selectedClass;
 
 	public ClassPathConfigVO(File inputstream, String nomeArquivo) {
@@ -21,10 +21,14 @@ public class ClassPathConfigVO {
 		this.nomeArquivo = nomeArquivo;
 		this.listClassesSelecionadas = new ArrayList<>();
 		this.listClassesListadas = new ArrayList<>();
-		this.selectedClass = new ClasseConfigVO(null);
 	}
-	
+
 	public ClasseConfigVO getSelectedClass() {
+		for (ClasseConfigVO vo : getListClassesSelecionadas()) {
+			if (vo.getDeveUtilizar()) {
+				selectedClass = vo;
+			}
+		}
 		return selectedClass;
 	}
 

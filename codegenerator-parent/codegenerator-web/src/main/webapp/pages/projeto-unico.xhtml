@@ -1,0 +1,171 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	template="/resources/templates/template.xhtml">
+
+	<ui:param name="param_titulo" value="#{label['projeto.conf.titulo']}" />
+	<ui:param name="padraoMB" value="#{projetoSimplificadoMB}" />
+
+	<ui:define name="template-customizado">
+
+		<p:panel>
+
+			<p:panelGrid>
+
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Diretório do Projeto:" for="projeto-conf-diretorio-projeto" />
+					</p:column>
+					<p:column>
+						<p:inputText id="projeto-conf-diretorio-projeto" value="#{projetoConfMB.model.diretorioPrincipal}" size="85"
+							required="true" />
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Arquivo de Labels:" for="projeto-conf-arquivo-labels" />
+					</p:column>
+					<p:column>
+						<p:inputText id="projeto-conf-arquivo-labels" value="#{projetoConfMB.model.arquivoLabel}" size="85"
+							required="true" />
+					</p:column>
+				</p:row>
+
+			</p:panelGrid>
+
+		</p:panel>
+
+		<p:spacer height="30" width="100%" />
+
+		<p:panel id="projeto-classpath">
+
+			<p:panelGrid>
+
+				<p:row>
+					<p:column colspan="2">
+						<p:fileUpload fileUploadListener="#{projetoConfMB.uploadDependencias}" mode="advanced" auto="true"
+							update="classpath-fileupload" allowTypes="/(\.|\/)(jar)$/" />
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column>
+						<p:dataTable id="classpath-fileupload" value="#{projetoConfMB.model.listDependencias}" var="item">
+
+							<p:columnGroup type="header">
+								<p:row>
+									<p:column width="25" />
+									<p:column headerText="Lista de ClassPath" />
+								</p:row>
+							</p:columnGroup>
+
+							<p:subTable var="subItem" value="#{item.listClassesListadas}">
+
+								<f:facet name="header">
+									<h:outputText value="Classes no Arquivo #{item.nomeArquivo}" />
+								</f:facet>
+
+								<p:column>
+									<center>
+										<p:selectBooleanCheckbox value="#{subItem.deveUtilizar}">
+											<!-- 											<p:ajax event="change" update="@form:tableview:datatable-listaclasspath" process="@parent" /> -->
+										</p:selectBooleanCheckbox>
+									</center>
+								</p:column>
+
+								<p:column>
+									<p:outputLabel value="#{subItem.nomeQualificado}" />
+								</p:column>
+							</p:subTable>
+
+						</p:dataTable>
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column>
+						<p:commandButton value="Submeter" process="projeto-classpath" update="panel-classe panel-fields"
+							action="#{projetoConfMB.carregarClassloader}" />
+					</p:column>
+				</p:row>
+
+			</p:panelGrid>
+
+		</p:panel>
+
+		<p:spacer height="30" width="100%" />
+
+		<p:panel id="panel-classe" header="#{projetoConfMB.model.selectedClasspath.nomeArquivo}">
+
+			<p:panelGrid>
+
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Nome da Classe: " />
+					</p:column>
+					<p:column>
+						<p:inputText value="#{projetoConfMB.model.selectedClasspath.selectedClass.nomeQualificado}" disabled="true"
+							readonly="true" size="60" />
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Pacote do Managed Bean: " />
+					</p:column>
+					<p:column>
+						<p:inputText value="#{projetoConfMB.model.selectedClasspath.selectedClass.pacoteManagedBean}" size="60" />
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Diretório das Páginas: " />
+					</p:column>
+					<p:column>
+						<p:inputText value="#{projetoConfMB.model.selectedClasspath.selectedClass.diretorioPagias}" size="60" />
+					</p:column>
+				</p:row>
+
+			</p:panelGrid>
+
+		</p:panel>
+		
+		<p:spacer height="30" width="100%" />
+		
+		<p:tabView id="panel-fields" value="#{projetoConfMB.listLogicaTela}" var="item">
+
+				<p:tab title="#{item}">
+
+					<p:dataTable value="#{projetoConfMB.model.selectedClasspath.selectedClass.listCamposClasse}" var="campo"
+						editable="true">
+						<p:column headerText="Campos">
+							<p:outputLabel value="#{campo.nome}" />
+						</p:column>
+						<p:column headerText="Template">
+							<p:outputLabel value="" />
+						</p:column>
+						<p:column headerText="Label">
+							<p:cellEditor>
+								<f:facet name="output">
+									<p:outputLabel value="#{campo.texto}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{campo.texto}" />
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+						<p:column width="40">
+							<p:rowEditor />
+						</p:column>
+					</p:dataTable>
+
+				</p:tab>
+
+			</p:tabView>
+			
+			<p:spacer height="30" width="100%" />
+
+	</ui:define>
+
+</ui:composition>

@@ -14,6 +14,9 @@ public class ProjetoConfiguracaoVO {
 	private ClassPathConfigVO selectedClasspath;
 
 	public ClassPathConfigVO getSelectedClasspath() {
+		if (getListDependencias() != null && getListDependencias().size() > 0) {
+			selectedClasspath = getListDependencias().get(0);
+		}
 		return selectedClasspath;
 	}
 
@@ -23,7 +26,6 @@ public class ProjetoConfiguracaoVO {
 
 	public ProjetoConfiguracaoVO() {
 		this.listDependencias = new ArrayList<>();
-		this.selectedClasspath = new ClassPathConfigVO(null, null);
 	}
 
 	public List<ClassPathConfigVO> getListDependencias() {
@@ -49,5 +51,4 @@ public class ProjetoConfiguracaoVO {
 	public void setArquivoLabel(String arquivoLabel) {
 		this.arquivoLabel = arquivoLabel;
 	}
-
 }
