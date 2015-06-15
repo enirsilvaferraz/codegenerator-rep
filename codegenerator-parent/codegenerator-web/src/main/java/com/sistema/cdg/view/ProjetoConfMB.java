@@ -5,23 +5,21 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
 
-import com.archtecture.model.enums.TipoOrdenacao;
-import com.archtecture.model.facedes.PersistenceFacadeLocal;
 import com.sistema.cdg.model.ClassPathConfigVO;
 import com.sistema.cdg.model.ClasseConfigVO;
 import com.sistema.cdg.model.ProjetoConfiguracaoVO;
-import com.sistema.cdg.model.Template;
+import com.sistema.codegenerator.model.enums.LogicaTela;
 import com.sistema.codegenerator.util.ClassLoaderExtention;
 
 @ManagedBean
@@ -29,18 +27,6 @@ import com.sistema.codegenerator.util.ClassLoaderExtention;
 public class ProjetoConfMB {
 
 	private ProjetoConfiguracaoVO model;
-
-	// public void onRowSelect(SelectEvent event) {
-	// FacesMessage msg = new FacesMessage("Car Selected", ((ClassPathConfig)
-	// event.getObject()).getNomeArquivo());
-	// FacesContext.getCurrentInstance().addMessage(null, msg);
-	// }
-	//
-	// public void onRowUnselect(UnselectEvent event) {
-	// FacesMessage msg = new FacesMessage("Car Unselected", ((ClassPathConfig)
-	// event.getObject()).getNomeArquivo());
-	// FacesContext.getCurrentInstance().addMessage(null, msg);
-	// }
 
 	public ProjetoConfiguracaoVO getModel() {
 		if (model == null) {
@@ -111,8 +97,6 @@ public class ProjetoConfMB {
 			for (ClassPathConfigVO classepath : getModel().getListDependencias()) {
 
 				classepath.getListClassesSelecionadas().clear();
-				// classepath.getListClassesSelecionadas().add(new
-				// ClasseConfig("Default"));
 
 				for (ClasseConfigVO classe : classepath.getListClassesListadas()) {
 					if (classe.getDeveUtilizar()) {
@@ -123,6 +107,7 @@ public class ProjetoConfMB {
 				for (ClasseConfigVO classe : classepath.getListClassesSelecionadas()) {
 					classe.setClasse(instance.loadClass(classe.getNomeQualificado().replace(".class", "")));
 				}
+
 			}
 
 		} catch (Exception e) {
@@ -134,15 +119,7 @@ public class ProjetoConfMB {
 		}
 	}
 
-	@EJB
-	PersistenceFacadeLocal peristence;
-
-	public List<Template> getListLogicaTela() {
-		try {
-			return peristence.pesquisarLista(new Template(), TipoOrdenacao.ASC);
-		} catch (Exception e) {
-			return new ArrayList<>();
-		}
+	public List<LogicaTela> getListLogicaTela() {
+		return Arrays.asList(LogicaTela.values());
 	}
-
 }

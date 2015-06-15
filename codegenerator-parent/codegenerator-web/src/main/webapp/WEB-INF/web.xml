@@ -16,6 +16,7 @@
 	</servlet-mapping>
 
 	<welcome-file-list>
+		<welcome-file>pages/projeto-unico.xhtml</welcome-file>
 		<welcome-file>pages/projeto-tabview.xhtml</welcome-file>
 	</welcome-file-list>
 
