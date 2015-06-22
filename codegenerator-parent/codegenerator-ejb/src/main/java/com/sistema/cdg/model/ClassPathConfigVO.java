@@ -6,21 +6,22 @@ import java.util.List;
 
 public class ClassPathConfigVO {
 
-	private File arquivo;
+	private File					arquivo;
 
-	private String nomeArquivo;
+	private String					nomeArquivo;
 
-	private List<ClasseConfigVO> listClassesSelecionadas;
+	private List<ClasseConfigVO>	listClassesSelecionadas;
 
-	private List<ClasseConfigVO> listClassesListadas;
+	private List<ClasseConfigVO>	listClassesListadas;
 
-	private ClasseConfigVO selectedClass;
+	private ClasseConfigVO			selectedClass;
 
 	public ClassPathConfigVO(File inputstream, String nomeArquivo) {
 		this.arquivo = inputstream;
 		this.nomeArquivo = nomeArquivo;
 		this.listClassesSelecionadas = new ArrayList<>();
 		this.listClassesListadas = new ArrayList<>();
+		this.selectedClass = new ClasseConfigVO(null);
 	}
 
 	public ClasseConfigVO getSelectedClass() {

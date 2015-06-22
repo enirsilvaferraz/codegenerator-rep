@@ -95,7 +95,7 @@
 
 		<p:spacer height="30" width="100%" />
 
-		<p:panel id="panel-classe" header="#{projetoConfMB.model.selectedClasspath.nomeArquivo}">
+		<p:panel id="panel-classe" rendered="#{projetoConfMB.model.selectedClasspath.selectedClass ne null}">
 
 			<p:panelGrid>
 
@@ -127,44 +127,65 @@
 					</p:column>
 				</p:row>
 
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Lógica: " />
+					</p:column>
+					<p:column>
+						<p:selectOneMenu value="#{projetoConfMB.model.selectedClasspath.selectedClass.logicaTela}">
+							<f:selectItems value="#{projetoConfMB.listLogicaTela}" />
+						</p:selectOneMenu>
+					</p:column>
+				</p:row>
+
 			</p:panelGrid>
 
 		</p:panel>
-		
+
 		<p:spacer height="30" width="100%" />
-		
-		<p:tabView id="panel-fields" value="#{projetoConfMB.listLogicaTela}" var="item">
 
-				<p:tab title="#{item}">
+		<p:tabView id="panel-fields" value="#{projetoConfMB.listTipoTemplate}" var="item"
+			rendered="#{projetoConfMB.model.selectedClasspath.selectedClass ne null}">
 
-					<p:dataTable value="#{projetoConfMB.model.selectedClasspath.selectedClass.listCamposClasse}" var="campo"
-						editable="true">
-						<p:column headerText="Campos">
-							<p:outputLabel value="#{campo.nome}" />
-						</p:column>
-						<p:column headerText="Template">
-							<p:outputLabel value="" />
-						</p:column>
-						<p:column headerText="Label">
-							<p:cellEditor>
-								<f:facet name="output">
-									<p:outputLabel value="#{campo.texto}" />
-								</f:facet>
-								<f:facet name="input">
-									<p:inputText value="#{campo.texto}" />
-								</f:facet>
-							</p:cellEditor>
-						</p:column>
-						<p:column width="40">
-							<p:rowEditor />
-						</p:column>
-					</p:dataTable>
+			<p:tab title="#{item}">
 
-				</p:tab>
+				<p:dataTable value="#{projetoConfMB.model.selectedClasspath.selectedClass.listCamposClasse}" var="campo"
+					rowKey="#{campo.nome}" editable="true">
 
-			</p:tabView>
-			
-			<p:spacer height="30" width="100%" />
+					<p:column headerText="Campos">
+						<p:outputLabel value="#{campo.nome}" />
+					</p:column>
+
+					<p:column headerText="Template">
+						<p:outputLabel value="" />
+					</p:column>
+
+					<p:column headerText="Label">
+						<p:cellEditor>
+							<f:facet name="output">
+								<p:outputLabel value="#{campo.texto}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{campo.texto}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column width="40">
+						<p:rowEditor />
+					</p:column>
+
+				</p:dataTable>
+
+			</p:tab>
+
+		</p:tabView>
+
+		<p:spacer height="30" width="100%" />
+
+		<p:panel>
+			<p:commandButton value="Gerar Código" />
+		</p:panel>
 
 	</ui:define>
 

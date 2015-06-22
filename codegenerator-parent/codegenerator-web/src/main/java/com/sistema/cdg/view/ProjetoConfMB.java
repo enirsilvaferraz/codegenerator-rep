@@ -19,14 +19,15 @@ import org.primefaces.event.FileUploadEvent;
 import com.sistema.cdg.model.ClassPathConfigVO;
 import com.sistema.cdg.model.ClasseConfigVO;
 import com.sistema.cdg.model.ProjetoConfiguracaoVO;
-import com.sistema.codegenerator.model.enums.LogicaTela;
+import com.sistema.cdg.model.enums.LogicaTela;
+import com.sistema.cdg.model.enums.TipoTemplate;
 import com.sistema.codegenerator.util.ClassLoaderExtention;
 
 @ManagedBean
 @SessionScoped
 public class ProjetoConfMB {
 
-	private ProjetoConfiguracaoVO model;
+	private ProjetoConfiguracaoVO	model;
 
 	public ProjetoConfiguracaoVO getModel() {
 		if (model == null) {
@@ -107,12 +108,14 @@ public class ProjetoConfMB {
 				for (ClasseConfigVO classe : classepath.getListClassesSelecionadas()) {
 					classe.setClasse(instance.loadClass(classe.getNomeQualificado().replace(".class", "")));
 				}
-
 			}
+		}
 
-		} catch (Exception e) {
+		catch (Exception e) {
 			e.printStackTrace();
-		} finally {
+		}
+
+		finally {
 			for (File file : lFiles) {
 				file.delete();
 			}
@@ -121,5 +124,9 @@ public class ProjetoConfMB {
 
 	public List<LogicaTela> getListLogicaTela() {
 		return Arrays.asList(LogicaTela.values());
+	}
+
+	public List<TipoTemplate> getListTipoTemplate() {
+		return Arrays.asList(TipoTemplate.values());
 	}
 }

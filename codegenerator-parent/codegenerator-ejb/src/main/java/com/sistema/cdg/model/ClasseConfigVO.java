@@ -4,27 +4,32 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sistema.cdg.model.enums.LogicaTela;
+
 public class ClasseConfigVO {
 
-	private String nomeQualificado;
+	private String				nomeQualificado;
 
-	private Boolean deveUtilizar;
+	private Boolean				deveUtilizar;
 
-	private List<CampoConfigVO> listCamposSelecionados;
-	
-	private List<CampoConfigVO> listCamposClasse;
+	private List<CampoConfigVO>	listCamposSelecionados;
 
-	private Class<?> classe;
+	private List<CampoConfigVO>	listCamposClasse;
 
-	private String pacoteManagedBean;
+	private Class<?>			classe;
 
-	private String diretorioPagias;
+	private String				pacoteManagedBean;
+
+	private String				diretorioPagias;
+
+	private LogicaTela			logicaTela;
 
 	public ClasseConfigVO(String nomeQualificado) {
 		this.nomeQualificado = nomeQualificado;
 		this.deveUtilizar = false;
 		this.listCamposClasse = new ArrayList<>();
 		this.listCamposSelecionados = new ArrayList<>();
+		this.logicaTela = LogicaTela.CRUD_PADRAO;
 	}
 
 	public String getNomeQualificado() {
@@ -46,7 +51,7 @@ public class ClasseConfigVO {
 	public void setClasse(Class<?> classe) {
 		this.classe = classe;
 		getListCamposClasse().clear();
-		for(Field campo : classe.getDeclaredFields()){
+		for (Field campo : classe.getDeclaredFields()) {
 			getListCamposClasse().add(new CampoConfigVO(campo));
 		}
 	}
@@ -93,4 +98,13 @@ public class ClasseConfigVO {
 	public void setListCamposClasse(List<CampoConfigVO> listCamposClasse) {
 		this.listCamposClasse = listCamposClasse;
 	}
+
+	public LogicaTela getLogicaTela() {
+		return logicaTela;
+	}
+
+	public void setLogicaTela(LogicaTela logicaTela) {
+		this.logicaTela = logicaTela;
+	}
+
 }
