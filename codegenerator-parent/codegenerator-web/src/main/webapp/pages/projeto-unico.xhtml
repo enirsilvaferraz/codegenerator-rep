@@ -151,6 +151,13 @@
 
 				<p:dataTable value="#{projetoConfMB.model.selectedClasspath.selectedClass.listCamposClasse}" var="campo"
 					rowKey="#{campo.nome}" editable="true">
+					
+					<p:column width="25" headerText="Usa?">
+						<center>
+							<p:selectBooleanCheckbox>
+							</p:selectBooleanCheckbox>
+						</center>
+					</p:column>
 
 					<p:column headerText="Campos">
 						<p:outputLabel value="#{campo.nome}" />

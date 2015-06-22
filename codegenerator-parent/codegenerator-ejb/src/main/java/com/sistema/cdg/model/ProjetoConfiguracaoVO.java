@@ -26,7 +26,6 @@ public class ProjetoConfiguracaoVO {
 
 	public ProjetoConfiguracaoVO() {
 		this.listDependencias = new ArrayList<>();
-		this.selectedClasspath = new ClassPathConfigVO(null, null);
 	}
 
 	public List<ClassPathConfigVO> getListDependencias() {

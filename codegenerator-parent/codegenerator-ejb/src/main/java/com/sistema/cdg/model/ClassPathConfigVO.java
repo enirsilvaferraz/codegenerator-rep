@@ -21,7 +21,6 @@ public class ClassPathConfigVO {
 		this.nomeArquivo = nomeArquivo;
 		this.listClassesSelecionadas = new ArrayList<>();
 		this.listClassesListadas = new ArrayList<>();
-		this.selectedClass = new ClasseConfigVO(null);
 	}
 
 	public ClasseConfigVO getSelectedClass() {
