@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +17,7 @@ import javax.faces.bean.SessionScoped;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
 
+import com.sistema.cdg.model.CampoConfigVO;
 import com.sistema.cdg.model.ClassPathConfigVO;
 import com.sistema.cdg.model.ClasseConfigVO;
 import com.sistema.cdg.model.ProjetoConfiguracaoVO;
@@ -29,6 +31,99 @@ public class ProjetoConfMB {
 
 	private ProjetoConfiguracaoVO	model;
 
+	private ClasseConfigVO			selectedClass;
+
+	public void carregarClasseSelecionada(ClasseConfigVO item) {
+
+		// Recupera o item do grid
+		selectedClass = item;
+
+		if (!item.getDeveUtilizar()) {
+			return;
+		}
+
+		// Lista fisica de arquivos
+		List<File> lFiles = new ArrayList<>();
+
+		try {
+
+			// Itera as dependencias inseridas no upload
+			for (ClassPathConfigVO classpath : getModel().getListDependencias()) {
+
+				// Adiciona os arquivos fisicos para exclusao
+				lFiles.add(classpath.getArquivo());
+			}
+
+			// Incorpora as classes ao classloader
+			ClassLoaderExtention instance = ClassLoaderExtention.getInstance(lFiles);
+
+			// Instancia a classe
+			selectedClass.setClasse(instance.loadClass(selectedClass.getNomeQualificado().replace(".class", "")));
+
+			// Atualiza os campos
+			selecionarLogicaTela();
+
+		}
+
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		finally {
+
+			// Remove os arquivos
+			for (File file : lFiles) {
+				file.delete();
+			}
+		}
+	}
+
+	public void selecionarLogicaTela() {
+
+		// Lista todos os campos da classes escolhida
+		List<CampoConfigVO> listaCampos = new ArrayList<>();
+		for (Field field : selectedClass.getClasse().getDeclaredFields()) {
+			listaCampos.add(new CampoConfigVO(field));
+		}
+
+		// Limpa o mapa
+		selectedClass.getMapCamposClasse().clear();
+
+		// Preenche o mapa com as novas informaçoes
+		for (TipoTemplate tipo : selectedClass.getLogicaTela().getListaTipoTemplate()) {
+			selectedClass.getMapCamposClasse().put(tipo, listaCampos);
+		}
+	}
+
+	@SuppressWarnings("resource")
+	public void carregarClassPath() {
+
+		try {
+
+			for (ClassPathConfigVO classpath : getModel().getListDependencias()) {
+
+				ZipInputStream zip = new ZipInputStream(new FileInputStream(classpath.getArquivo()));
+				for (ZipEntry entry = zip.getNextEntry(); entry != null; entry = zip.getNextEntry()) {
+					if (!entry.isDirectory() && entry.getName().endsWith(".class")) {
+						classpath.getListClassesListadas().add(new ClasseConfigVO(entry.getName().replace('/', '.')));
+					}
+				}
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public List<LogicaTela> getListLogicaTela() {
+		return Arrays.asList(LogicaTela.values());
+	}
+
+	public List<TipoTemplate> getListTipoTemplate() {
+		return new ArrayList<>(selectedClass.getMapCamposClasse().keySet());
+	}
+
 	public ProjetoConfiguracaoVO getModel() {
 		if (model == null) {
 			model = new ProjetoConfiguracaoVO();
@@ -36,8 +131,16 @@ public class ProjetoConfMB {
 		return model;
 	}
 
+	public ClasseConfigVO getSelectedClass() {
+		return selectedClass;
+	}
+
 	public void setModel(ProjetoConfiguracaoVO model) {
 		this.model = model;
+	}
+
+	public void setSelectedClass(ClasseConfigVO selectedClass) {
+		this.selectedClass = selectedClass;
 	}
 
 	public void uploadDependencias(FileUploadEvent event) {
@@ -58,75 +161,5 @@ public class ProjetoConfMB {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	@SuppressWarnings("resource")
-	public void carregarClassPath() {
-
-		try {
-
-			for (ClassPathConfigVO classpath : getModel().getListDependencias()) {
-
-				ZipInputStream zip = new ZipInputStream(new FileInputStream(classpath.getArquivo()));
-				for (ZipEntry entry = zip.getNextEntry(); entry != null; entry = zip.getNextEntry()) {
-					if (!entry.isDirectory() && entry.getName().endsWith(".class")) {
-
-						ClasseConfigVO classe = new ClasseConfigVO(entry.getName().replace('/', '.'));
-						classpath.getListClassesListadas().add(classe);
-					}
-				}
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	public void carregarClassloader() {
-
-		List<File> lFiles = new ArrayList<>();
-
-		try {
-
-			for (ClassPathConfigVO classpath : getModel().getListDependencias()) {
-				lFiles.add(classpath.getArquivo());
-			}
-
-			ClassLoaderExtention instance = ClassLoaderExtention.getInstance(lFiles);
-
-			for (ClassPathConfigVO classepath : getModel().getListDependencias()) {
-
-				classepath.getListClassesSelecionadas().clear();
-
-				for (ClasseConfigVO classe : classepath.getListClassesListadas()) {
-					if (classe.getDeveUtilizar()) {
-						classepath.getListClassesSelecionadas().add(classe);
-					}
-				}
-
-				for (ClasseConfigVO classe : classepath.getListClassesSelecionadas()) {
-					classe.setClasse(instance.loadClass(classe.getNomeQualificado().replace(".class", "")));
-				}
-			}
-		}
-
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		finally {
-			for (File file : lFiles) {
-				file.delete();
-			}
-		}
-	}
-
-	public List<LogicaTela> getListLogicaTela() {
-		return Arrays.asList(LogicaTela.values());
-	}
-
-	public List<TipoTemplate> getListTipoTemplate() {
-		return Arrays.asList(TipoTemplate.values());
 	}
 }

@@ -1,34 +1,34 @@
 package com.sistema.cdg.model;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.sistema.cdg.model.enums.LogicaTela;
+import com.sistema.cdg.model.enums.TipoTemplate;
 
 public class ClasseConfigVO {
 
-	private String				nomeQualificado;
+	private String									nomeQualificado;
 
-	private Boolean				deveUtilizar;
+	private Boolean									deveUtilizar;
 
-	private List<CampoConfigVO>	listCamposSelecionados;
+	private Map<TipoTemplate, List<CampoConfigVO>>	mapCamposClasse;
 
-	private List<CampoConfigVO>	listCamposClasse;
+	private Class<?>								classe;
 
-	private Class<?>			classe;
+	private String									pacoteManagedBean;
 
-	private String				pacoteManagedBean;
+	private String									diretorioPagias;
 
-	private String				diretorioPagias;
+	private LogicaTela								logicaTela;
 
-	private LogicaTela			logicaTela;
+	private String									tituloTela;
 
 	public ClasseConfigVO(String nomeQualificado) {
 		this.nomeQualificado = nomeQualificado;
 		this.deveUtilizar = false;
-		this.listCamposClasse = new ArrayList<>();
-		this.listCamposSelecionados = new ArrayList<>();
+		this.mapCamposClasse = new HashMap<>();
 		this.logicaTela = LogicaTela.CRUD_PADRAO;
 	}
 
@@ -48,12 +48,16 @@ public class ClasseConfigVO {
 		this.deveUtilizar = deveUtilizar;
 	}
 
+	public String getTituloTela() {
+		return tituloTela;
+	}
+
+	public void setTituloTela(String tituloTela) {
+		this.tituloTela = tituloTela;
+	}
+
 	public void setClasse(Class<?> classe) {
 		this.classe = classe;
-		getListCamposClasse().clear();
-		for (Field campo : classe.getDeclaredFields()) {
-			getListCamposClasse().add(new CampoConfigVO(campo));
-		}
 	}
 
 	public Class<?> getClasse() {
@@ -83,28 +87,20 @@ public class ClasseConfigVO {
 		this.diretorioPagias = diretorioPagias;
 	}
 
-	public List<CampoConfigVO> getListCamposSelecionados() {
-		return listCamposSelecionados;
-	}
-
-	public void setListCamposSelecionados(List<CampoConfigVO> listCamposSelecionados) {
-		this.listCamposSelecionados = listCamposSelecionados;
-	}
-
-	public List<CampoConfigVO> getListCamposClasse() {
-		return listCamposClasse;
-	}
-
-	public void setListCamposClasse(List<CampoConfigVO> listCamposClasse) {
-		this.listCamposClasse = listCamposClasse;
-	}
-
 	public LogicaTela getLogicaTela() {
 		return logicaTela;
 	}
 
 	public void setLogicaTela(LogicaTela logicaTela) {
 		this.logicaTela = logicaTela;
+	}
+
+	public Map<TipoTemplate, List<CampoConfigVO>> getMapCamposClasse() {
+		return mapCamposClasse;
+	}
+
+	public void setMapCamposClasse(Map<TipoTemplate, List<CampoConfigVO>> mapCamposClasse) {
+		this.mapCamposClasse = mapCamposClasse;
 	}
 
 }

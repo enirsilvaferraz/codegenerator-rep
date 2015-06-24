@@ -5,24 +5,11 @@ import java.util.List;
 
 public class ProjetoConfiguracaoVO {
 
-	private String diretorioPrincipal;
+	private String					diretorioPrincipal;
 
-	private String arquivoLabel;
+	private String					arquivoLabel;
 
-	private List<ClassPathConfigVO> listDependencias;
-
-	private ClassPathConfigVO selectedClasspath;
-
-	public ClassPathConfigVO getSelectedClasspath() {
-		if (getListDependencias() != null && getListDependencias().size() > 0) {
-			selectedClasspath = getListDependencias().get(0);
-		}
-		return selectedClasspath;
-	}
-
-	public void setSelectedClasspath(ClassPathConfigVO selectedClasspath) {
-		this.selectedClasspath = selectedClasspath;
-	}
+	private List<ClassPathConfigVO>	listDependencias;
 
 	public ProjetoConfiguracaoVO() {
 		this.listDependencias = new ArrayList<>();
