@@ -1,0 +1,122 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	template="/resources/templates/template-crud.xhtml">
+
+	<ui:param name="param_titulo" value="#{label['templateCampo.crud.titulo']}" />
+	<ui:param name="padraoMB" value="#{templateCampoCrudMB}" />
+
+	<ui:define name="define-tabela-padrao">
+
+<p:column headerText="#{label['templateCampo.crud.campo.tipoToken']}" sortBy="#{item.tipoToken}">
+	<p:outputLabel value="#{label[item.tipoToken.getClass().getName().concat('.').concat(item.tipoToken)]}" />
+</p:column><p:column headerText="#{label['templateCampo.crud.campo.tipoCampo']}" sortBy="#{item.tipoCampo}">
+	<p:outputLabel value="#{label[item.tipoCampo.getClass().getName().concat('.').concat(item.tipoCampo)]}" />
+</p:column><p:column headerText="#{label['templateCampo.crud.campo.codigoFonte']}" sortBy="#{item.codigoFonte}">
+	<p:outputLabel value="#{item.codigoFonte}" />
+</p:column>
+
+	</ui:define>
+
+	<ui:define name="define-filtros-padrao">
+
+<p:row>
+	<p:column>
+		<p:outputLabel value="#{label['templateCampo.crud.campo.tipoToken']}" for="templateCampo_tipoToken_sel" />
+	</p:column>
+	<p:column>
+		<p:selectOneMenu id="templateCampo_tipoToken_sel" value="#{templateCampoCrudMB.modelSel.tipoToken}" required="false" >
+			<f:selectItem itemLabel="#{label['sistema.select.selecione']}" itemValue="#{null}" />
+			<f:selectItems value="#{templateCampoCrudMB.listTipoToken}" var="item" itemLabel="#{label[item.getClass().getName().concat('.').concat(item)]}" 
+				itemValue="#{item}" />
+		</p:selectOneMenu>
+	</p:column>
+</p:row>
+<p:row>
+	<p:column>
+		<p:outputLabel value="#{label['templateCampo.crud.campo.tipoCampo']}" for="templateCampo_tipoCampo_sel" />
+	</p:column>
+	<p:column>
+		<p:selectOneMenu id="templateCampo_tipoCampo_sel" value="#{templateCampoCrudMB.modelSel.tipoCampo}" required="false" >
+			<f:selectItem itemLabel="#{label['sistema.select.selecione']}" itemValue="#{null}" />
+			<f:selectItems value="#{templateCampoCrudMB.listTipoCampo}" var="item" itemLabel="#{label[item.getClass().getName().concat('.').concat(item)]}" 
+				itemValue="#{item}" />
+		</p:selectOneMenu>
+	</p:column>
+</p:row>
+<p:row>
+	<p:column>
+		<p:outputLabel value="#{label['templateCampo.crud.campo.codigoFonte']}" for="templateCampo_codigoFonte_sel" />
+	</p:column>
+	<p:column>
+		<p:inputText id="templateCampo_codigoFonte_sel" value="#{templateCampoCrudMB.modelSel.codigoFonte}" maxlength="500" required="false"  />
+	</p:column>
+</p:row>
+
+	</ui:define>
+
+	<ui:define name="define-cadastro-padrao">
+
+<p:row>
+	<p:column>
+		<p:outputLabel value="#{label['templateCampo.crud.campo.tipoToken']}" for="templateCampo_tipoToken_cad" />
+	</p:column>
+	<p:column>
+		<p:selectOneMenu id="templateCampo_tipoToken_cad" value="#{templateCampoCrudMB.modelCad.tipoToken}" required="true" >
+			<f:selectItem itemLabel="#{label['sistema.select.selecione']}" itemValue="#{null}" />
+			<f:selectItems value="#{templateCampoCrudMB.listTipoToken}" var="item" itemLabel="#{label[item.getClass().getName().concat('.').concat(item)]}" 
+				itemValue="#{item}" />
+		</p:selectOneMenu>
+	</p:column>
+</p:row>
+<p:row>
+	<p:column>
+		<p:outputLabel value="#{label['templateCampo.crud.campo.tipoCampo']}" for="templateCampo_tipoCampo_cad" />
+	</p:column>
+	<p:column>
+		<p:selectOneMenu id="templateCampo_tipoCampo_cad" value="#{templateCampoCrudMB.modelCad.tipoCampo}" required="true" >
+			<f:selectItem itemLabel="#{label['sistema.select.selecione']}" itemValue="#{null}" />
+			<f:selectItems value="#{templateCampoCrudMB.listTipoCampo}" var="item" itemLabel="#{label[item.getClass().getName().concat('.').concat(item)]}" 
+				itemValue="#{item}" />
+		</p:selectOneMenu>
+	</p:column>
+</p:row>
+<p:row>
+	<p:column>
+		<p:outputLabel value="#{label['templateCampo.crud.campo.codigoFonte']}" for="templateCampo_codigoFonte_cad" />
+	</p:column>
+	<p:column>
+		<p:inputText id="templateCampo_codigoFonte_cad" value="#{templateCampoCrudMB.modelCad.codigoFonte}" maxlength="500" required="true"  />
+	</p:column>
+</p:row>
+
+	</ui:define>
+
+	<ui:define name="define-detalhes-padrao">
+
+<p:row>
+	<p:column>
+		<p:outputLabel value="#{label['templateCampo.crud.campo.tipoToken']}" for="templateCampo_tipoToken_det" />
+	</p:column>
+	<p:column>
+		<p:outputLabel id="templateCampo_tipoToken_det"  value="#{label[templateCampoCrudMB.modelCad.tipoToken.getClass().getName().concat('.').concat(templateCampoCrudMB.modelCad.tipoToken)]}" />
+	</p:column>
+</p:row><p:row>
+	<p:column>
+		<p:outputLabel value="#{label['templateCampo.crud.campo.tipoCampo']}" for="templateCampo_tipoCampo_det" />
+	</p:column>
+	<p:column>
+		<p:outputLabel id="templateCampo_tipoCampo_det"  value="#{label[templateCampoCrudMB.modelCad.tipoCampo.getClass().getName().concat('.').concat(templateCampoCrudMB.modelCad.tipoCampo)]}" />
+	</p:column>
+</p:row><p:row>
+	<p:column>
+		<p:outputLabel value="#{label['templateCampo.crud.campo.codigoFonte']}" for="templateCampo_codigoFonte_det" />
+	</p:column>
+	<p:column>
+		<p:outputLabel id="templateCampo_codigoFonte_det" value="#{templateCampoCrudMB.modelCad.codigoFonte}"  />
+	</p:column>
+</p:row>
+
+	</ui:define>
+
+
+</ui:composition>

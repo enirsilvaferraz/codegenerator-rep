@@ -11,27 +11,57 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+
+import lombok.Getter;
+import lombok.Setter;
 
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
 
+import com.architecture.view.UtilWeb;
+import com.archtecture.model.facedes.PersistenceFacadeLocal;
 import com.sistema.cdg.model.CampoConfigVO;
 import com.sistema.cdg.model.ClassPathConfigVO;
 import com.sistema.cdg.model.ClasseConfigVO;
 import com.sistema.cdg.model.ProjetoConfiguracaoVO;
 import com.sistema.cdg.model.enums.LogicaTela;
-import com.sistema.cdg.model.enums.TipoTemplate;
+import com.sistema.cdg.model.enums.TipoToken;
 import com.sistema.codegenerator.util.ClassLoaderExtention;
 
 @ManagedBean
 @SessionScoped
 public class ProjetoConfMB {
 
-	private ProjetoConfiguracaoVO	model;
+	@EJB
+	private PersistenceFacadeLocal persistenceFacade;
 
-	private ClasseConfigVO			selectedClass;
+	@Getter
+	@Setter
+	private ProjetoConfiguracaoVO model;
+
+	@Getter
+	@Setter
+	private ClasseConfigVO selectedClass;
+
+	// @Getter
+	// private List<TemplateCampo> listTemplateCampo;
+
+	@PostConstruct
+	public void init() {
+
+		try {
+
+			model = new ProjetoConfiguracaoVO();
+			// listTemplateCampo = persistenceFacade.pesquisarLista(new TemplateCampo(), null);
+
+		} catch (Exception e) {
+			UtilWeb.tratarException(e);
+		}
+	}
 
 	public void carregarClasseSelecionada(ClasseConfigVO item) {
 
@@ -80,17 +110,18 @@ public class ProjetoConfMB {
 
 	public void selecionarLogicaTela() {
 
-		// Lista todos os campos da classes escolhida
-		List<CampoConfigVO> listaCampos = new ArrayList<>();
-		for (Field field : selectedClass.getClasse().getDeclaredFields()) {
-			listaCampos.add(new CampoConfigVO(field));
-		}
-
 		// Limpa o mapa
 		selectedClass.getMapCamposClasse().clear();
 
 		// Preenche o mapa com as novas informaçoes
-		for (TipoTemplate tipo : selectedClass.getLogicaTela().getListaTipoTemplate()) {
+		for (TipoToken tipo : selectedClass.getLogicaTela().getListaTipoTemplate()) {
+
+			// Lista todos os campos da classes escolhida. A criação da lista deve ser interna para evitar referencia
+			List<CampoConfigVO> listaCampos = new ArrayList<>();
+			for (Field field : selectedClass.getClasse().getDeclaredFields()) {
+				listaCampos.add(new CampoConfigVO(field));
+			}
+
 			selectedClass.getMapCamposClasse().put(tipo, listaCampos);
 		}
 	}
@@ -120,27 +151,8 @@ public class ProjetoConfMB {
 		return Arrays.asList(LogicaTela.values());
 	}
 
-	public List<TipoTemplate> getListTipoTemplate() {
+	public List<TipoToken> getListTipoTemplate() {
 		return new ArrayList<>(selectedClass.getMapCamposClasse().keySet());
-	}
-
-	public ProjetoConfiguracaoVO getModel() {
-		if (model == null) {
-			model = new ProjetoConfiguracaoVO();
-		}
-		return model;
-	}
-
-	public ClasseConfigVO getSelectedClass() {
-		return selectedClass;
-	}
-
-	public void setModel(ProjetoConfiguracaoVO model) {
-		this.model = model;
-	}
-
-	public void setSelectedClass(ClasseConfigVO selectedClass) {
-		this.selectedClass = selectedClass;
 	}
 
 	public void uploadDependencias(FileUploadEvent event) {

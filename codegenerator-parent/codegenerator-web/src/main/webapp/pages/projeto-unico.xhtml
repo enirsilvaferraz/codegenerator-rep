@@ -153,40 +153,34 @@
 
 			<p:tab title="#{item}">
 
-				<p:dataTable value="#{projetoConfMB.selectedClass.mapCamposClasse[item]}" var="campo" rowKey="#{campo}"
-					editable="true">
+				<p:dataGrid columns="1" value="#{projetoConfMB.selectedClass.mapCamposClasse[item]}" var="campo">
 
-					<p:column width="25" headerText="Usa?">
-						<center>
-							<p:selectBooleanCheckbox>
-							</p:selectBooleanCheckbox>
-						</center>
-					</p:column>
+					<p:panelGrid>
 
-					<p:column headerText="Campos">
-						<p:outputLabel value="#{campo.nome}" />
-					</p:column>
+						<p:row>
+							<p:column style="width: 150px;">
+								<p:outputLabel value="#{campo.nome}" />
+							</p:column>
+							<p:column>
+								<p:inputText value="#{campo.texto}" style="width:100%" placeholder="Label" />
+							</p:column>
+							<p:column>
+								<p:inputText type="number" style="width:80px" placeholder="Tamanho" />
+							</p:column>
+							<p:column>
+								<p:selectBooleanButton onLabel="Requerido" offLabel="Não Requerido" style="width:120px" />
+							</p:column>
+							<p:column>
+								<p:outputLabel value="Template" />
+							</p:column>
+							<p:column>
+								<p:selectBooleanButton onLabel="Utilizar" offLabel="Não Utilizar" style="width:120px" />
+							</p:column>
+						</p:row>
 
-					<p:column headerText="Template">
-						<p:outputLabel value="" />
-					</p:column>
+					</p:panelGrid>
 
-					<p:column headerText="Label">
-						<p:cellEditor>
-							<f:facet name="output">
-								<p:outputLabel value="#{campo.texto}" />
-							</f:facet>
-							<f:facet name="input">
-								<p:inputText value="#{campo.texto}" />
-							</f:facet>
-						</p:cellEditor>
-					</p:column>
-
-					<p:column width="40">
-						<p:rowEditor />
-					</p:column>
-
-				</p:dataTable>
+				</p:dataGrid>
 
 			</p:tab>
 
