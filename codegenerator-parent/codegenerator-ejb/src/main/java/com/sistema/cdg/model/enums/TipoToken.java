@@ -1,6 +1,6 @@
 package com.sistema.cdg.model.enums;
 
-public enum TipoTemplate {
+public enum TipoToken {
 
 	DATATABLE, ARGUMENTO, CADASTRO, DETALHE
 }

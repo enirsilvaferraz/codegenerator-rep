@@ -3,11 +3,11 @@ package com.sistema.cdg.model.enums;
 
 public enum LogicaTela {
 
-	CRUD_PADRAO(0, "crud", TipoTemplate.ARGUMENTO, TipoTemplate.CADASTRO, TipoTemplate.DATATABLE, TipoTemplate.DETALHE),
+	CRUD_PADRAO(0, "crud", TipoToken.ARGUMENTO, TipoToken.CADASTRO, TipoToken.DATATABLE, TipoToken.DETALHE),
 
-	TABULAR(1, "tab", TipoTemplate.CADASTRO, TipoTemplate.DATATABLE, TipoTemplate.DETALHE),
+	TABULAR(1, "tab", TipoToken.CADASTRO, TipoToken.DATATABLE, TipoToken.DETALHE),
 
-	CONFIGURACAO(2, "conf", TipoTemplate.CADASTRO);
+	CONFIGURACAO(2, "conf", TipoToken.CADASTRO);
 
 	public static LogicaTela valueOf(Integer id) {
 		return LogicaTela.values()[id];
@@ -17,9 +17,9 @@ public enum LogicaTela {
 
 	private String			extesaoTela;
 
-	private TipoTemplate[]	listaTipoTemplate;
+	private TipoToken[]	listaTipoTemplate;
 
-	private LogicaTela(Integer codigo, String extesaoTela, TipoTemplate... listaTipoTemplate) {
+	private LogicaTela(Integer codigo, String extesaoTela, TipoToken... listaTipoTemplate) {
 		this.codigo = codigo;
 		this.extesaoTela = extesaoTela;
 		this.listaTipoTemplate = listaTipoTemplate;
@@ -33,7 +33,7 @@ public enum LogicaTela {
 		return extesaoTela;
 	}
 
-	public TipoTemplate[] getListaTipoTemplate() {
+	public TipoToken[] getListaTipoTemplate() {
 		return listaTipoTemplate;
 	}
 }
